@@ -99,7 +99,7 @@ async def clone_medias(client: Bot, message: Message):
                     pass
                 if bool(fn_caption) == bool(1):
                     try:
-                        caption = str(file_name).rsplit('.', 1)[0] + "\n\n☫File Uploaded By ☞ ⇛@UniversalFilmStudio⇚"
+                        caption = str(file_name).rsplit('.', 1)[0] + "\n\n<code>┈••✿ @UniversalFilmStudio ✿••┈</code>"     # ☫File Uploaded By ☞ ⇛@UniversalFilmStudio⇚
                     except Exception:
                         file_name = None
                 elif bool(default_caption) == bool(1):
