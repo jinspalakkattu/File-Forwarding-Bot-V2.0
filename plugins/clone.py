@@ -134,7 +134,7 @@ async def clone_medias(client: Bot, message: Message):
 
                 if bool(fn_caption) == bool(1):
                     try:
-                        caption = str(file_name).rsplit('.', 1)[0] + "\n\n<code>┈••✿ @UniversalFilmStudio ✿••┈</code>"
+                        caption = str(file_name).rsplit('.', 1)[0] + "\n\n<code>┈•••✿ @UniversalFilmStudio ✿•••┈</code>"
                         # ☫File Uploaded By ☞ ⇛@UniversalFilmStudio⇚
 
                         if file_type == 'document' or file_type == 'video':
