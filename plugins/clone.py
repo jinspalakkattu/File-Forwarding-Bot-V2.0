@@ -79,12 +79,46 @@ async def clone_medias(client: Bot, message: Message):
         for file_type in file_types:
             media = getattr(messages, file_type, None)
             if media is not None:
+                file_size = ""
+                size = ""
+                file_kb = ""
+                file_mb = ""
+                file_gb = ""
+
                 if file_type == 'document':
                     doc_files += 1
                     file_name = messages.document.file_name
+                    file_size = int(messages.document.file_size)
+                    file_size = round((file_size/1024), 2)  # from B to KB
+
+                    if file_size < 1024:
+                        file_kb = f"{str(round(file_size,2))} KB"
+                        size = file_kb
+                    elif file_size < (1024*1024):
+                        file_mb = f"{str(round((file_size/1024),2))} MB"
+                        size = file_mb
+                    else:
+                        file_gb = f"{str(round((file_size/(1024*1024)),2))} GB"
+                        size = file_gb
+
+                    file_size_p = "<code>💾 Size: " + size + "</code>"
                 elif file_type == 'video':
                     video_files += 1
                     file_name = messages.video.file_name
+                    file_size = int(messages.video.file_size)
+                    file_size = round((file_size/1024), 2)  # from B to KB
+
+                    if file_size < 1024:
+                        file_kb = f"{str(round(file_size,2))} KB"
+                        size = file_kb
+                    elif file_size < (1024*1024):
+                        file_mb = f"{str(round((file_size/1024),2))} MB"
+                        size = file_mb
+                    else:
+                        file_gb = f"{str(round((file_size/(1024*1024)),2))} GB"
+                        size = file_gb
+
+                    file_size_p = "<code>💾 Size: " + size + "</code>"
                 elif file_type == 'audio':
                     audio_files += 1
                     file_name = messages.audio.file_name
@@ -97,9 +131,14 @@ async def clone_medias(client: Bot, message: Message):
                 else:
                     other_files += 1
                     pass
+
                 if bool(fn_caption) == bool(1):
                     try:
-                        caption = str(file_name).rsplit('.', 1)[0] + "\n\n☫File Uploaded By ☞ ⇛@UniversalFilmStudio⇚"
+                        caption = str(file_name).rsplit('.', 1)[0] + "\n\n<code>┈••✿ @UniversalFilmStudio ✿••┈</code>"
+                        # ☫File Uploaded By ☞ ⇛@UniversalFilmStudio⇚
+
+                        if file_type == 'document' or file_type == 'video':
+                            caption = caption + "\n\n" + file_size_p
                     except Exception:
                         file_name = None
                 elif bool(default_caption) == bool(1):
